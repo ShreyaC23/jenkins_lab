@@ -1,31 +1,15 @@
+@Library('shared-lib') _
+
 pipeline {
- agent any
+    agent any
 
- stages {
+    stages {
 
-  stage('Build') {
-   steps {
-    sh 'mvn clean package'
-   }
-  }
- stage('Test') {
-   steps {
-    sh 'mvn test'
-   }
-  }
+        stage('Build using Shared Library') {
+            steps {
+                buildApp()
+            }
+        }
 
- stage('Package') {
-   steps {
-    sh 'mvn package'
-   }
-  }
-
-
- }
-
- post {
-  success {
-   archiveArtifacts artifacts: 'target/*.jar'
-  }
- }
+    }
 }
