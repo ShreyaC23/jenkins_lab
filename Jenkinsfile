@@ -1,19 +1,19 @@
 pipeline {
-    agent any
+ agent any
 
-    stages {
+ stages {
 
-        stage('Build') {
-            steps {
-                sh 'mvn clean compile'
-            }
-        }
+  stage('Build') {
+   steps {
+    sh 'mvn clean package'
+   }
+  }
 
-        stage('Package') {
-            steps {
-                sh 'mvn package'
-            }
-        }
+ }
 
-    }
+ post {
+  success {
+   archiveArtifacts artifacts: 'target/*.jar'
+  }
+ }
 }
